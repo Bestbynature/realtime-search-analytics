@@ -1,5 +1,7 @@
 <a name="readme-top"></a>
 
+[Video Demo for the realtime search analytics app](https://drive.google.com/file/d/1d2VDhisuIhs6I7ToG9uNkJQwumiPHNN1/view?usp=sharing)
+
 <!-- TABLE OF CONTENTS -->
 
 # 📗 Table of Contents
