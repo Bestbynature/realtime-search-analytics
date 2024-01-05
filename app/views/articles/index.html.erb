@@ -6,6 +6,8 @@
   <%= render partial: "search/form", locals: { results: [] } %>
 </div>
 
+<%= link_to "Analytics", analytics_path, class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+
 <div id="articles" class="mt-4 mx-10">
   <%= render "articles/articles", articles: @articles %>
 </div>
