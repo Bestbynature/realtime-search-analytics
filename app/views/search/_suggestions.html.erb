@@ -1,7 +1,7 @@
 <% if results.any? %>
   <div class="absolute w-full overflow-y-auto max-h-60 bg-white rounded-lg shadow-lg">
     <% results.each do |result| %>
-      <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer" data-action="click->search#childClicked">
+      <div class="px-4 py-2 hover:bg-gray-100 cursor-pointer suggestion-item" data-action="click->search#childClicked">
         <%= link_to result.title, result, class: "text-blue-500" %>
       </div>
     <% end %>

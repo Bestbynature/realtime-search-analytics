@@ -2,11 +2,19 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["input", "suggestions"];
+
   connect() {
-    console.log("connected");
     document.addEventListener("click", (event) => {
       if (!this.element.contains(event.target)) {
         this.hideSuggestions();
+      }
+    });
+
+    this.suggestionsTarget.addEventListener("click", (event) => {
+      const suggestionItem = event.target.closest(".suggestion-item");
+      if (suggestionItem) {
+        event.preventDefault();
+        this.handleSuggestionClick(suggestionItem);
       }
     });
   }
@@ -33,9 +41,10 @@ export default class extends Controller {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRF-Token": document.querySelector("[name='csrf-token']").content,
+        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")
+          .content,
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query: query }),
     }).then((response) => {
       response.text().then((html) => {
         document.body.insertAdjacentHTML("beforeend", html);
@@ -44,8 +53,25 @@ export default class extends Controller {
   }
 
   childClicked(event) {
-    this.childWasClicked = this.element.contains(event.target);
+    const suggestionItem = event.target.closest(".suggestion-item");
+    if (suggestionItem) {
+      event.preventDefault();
+      this.handleSuggestionClick(suggestionItem);
+    }
+  }
+
+  handleSuggestionClick(suggestionItem) {
+    const query = suggestionItem.textContent.trim();
+    this.inputTarget.value = query;
     this.hideSuggestions();
+
+    const link = suggestionItem.querySelector("a");
+    const articleUrl = link.getAttribute("href");
+
+    this.inputTarget.value = link.textContent.trim();
+    this.hideSuggestions();
+
+    window.location.href = articleUrl;
   }
 
   showSuggestions() {
@@ -53,9 +79,6 @@ export default class extends Controller {
   }
 
   hideSuggestions() {
-    if (this.childWasClicked) {
-      this.suggestionsTarget.classList.add("hidden");
-    }
-    this.childWasClicked = false;
+    this.suggestionsTarget.classList.add("hidden");
   }
 }
