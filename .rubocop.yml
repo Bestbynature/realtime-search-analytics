@@ -1,0 +1,28 @@
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+  Max: 100 
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Exclude:
+    - 'spec/**/*'
+  Max: 30
+
+Metrics/LineLength:
+  Exclude:
+    - 'spec/**/*'
+  Max: 200
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Exclude:
+    - 'spec/**/*'
+  Max: 30
+
+cyclomatic_complexity:
+  Max: 10

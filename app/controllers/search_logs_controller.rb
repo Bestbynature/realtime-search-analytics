@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SearchLogsController < ApplicationController
   def analytics
     all_queries = SearchLog.where.not(search_query: nil).pluck(:search_query)
@@ -19,7 +21,7 @@ class SearchLogsController < ApplicationController
     end
 
     @search_logs = final_search_queries.group_by { |query| query }.transform_values(&:count)
-                                          .sort_by { |_key, value| value }.reverse.to_h.first(10)
+                                       .sort_by { |_key, value| value }.reverse.to_h.first(10)
 
     render 'analytics'
   end
